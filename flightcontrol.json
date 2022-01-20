@@ -1,0 +1,35 @@
+{
+  "environments": [
+    {
+      "id": "production",
+      "name": "Production",
+      "region": "us-west-2",
+      "source": {
+        "branch": "main"
+      },
+      "services": [
+        {
+          "id": "my-webapp",
+          "name": "my-webapp",
+          "type": "fargate",
+          "cpu": 0.25,
+          "memory": 512,
+          "domain": "example.com",
+          "minInstances": 1,
+          "maxInstances": 1,
+          "buildCommand": "npm run build",
+          "startCommand": "npm run start",
+          "envVariables": {
+            "APP_ENV": "production",
+            "DATABASE_URL": {
+              "fromParameterStore": "DATABASE_URL"
+            },
+            "SESSION_SECRET_KEY": {
+              "fromParameterStore": "SESSION_SECRET_KEY"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
